@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Admin - Conteúdos{% endblock %}
+{% block content %}
+<h3>Adicionar Conteúdo</h3>
+<form method="POST">
+    <div class="form-group">
+        <label for="title">Título</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Descrição</label>
+        <textarea class="form-control" id="description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="link">Link (opcional)</label>
+        <input type="url" class="form-control" id="link" name="link">
+    </div>
+    <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
+
+<h3>Conteúdos Existentes</h3>
+<ul class="list-group">
+    {% for content in contents %}
+    <li class="list-group-item">
+        <strong>{{ content.title }}</strong> - {{ content.description }}
+        {% if content.link %}
+        <a href="{{ content.link }}" target="_blank">Visitar Link</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

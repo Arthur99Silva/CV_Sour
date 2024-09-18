@@ -1,8 +1,7 @@
-# auth.py
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User  # Certifique-se de importar o modelo corretamente
+from .models import User
 from . import db
 
 auth = Blueprint('auth', __name__)
@@ -48,7 +47,12 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
+            # Corrigido para usar o método de hash correto
+            new_user = User(
+                email=email, 
+                first_name=first_name, 
+                password=generate_password_hash(password1, method='pbkdf2:sha256')  # Correção aplicada aqui
+            )
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)

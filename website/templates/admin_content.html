@@ -2,39 +2,45 @@
 {% block title %}Admin - Conteúdos{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h3>Adicionar Conteúdo</h3>
-    <form method="POST" class="mb-4">
-        <div class="form-group">
-            <label for="title">Título</label>
-            <input type="text" class="form-control" id="title" name="title" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Descrição</label>
-            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="link">Link (opcional)</label>
-            <input type="url" class="form-control" id="link" name="link">
-        </div>
-        <button type="submit" class="btn btn-primary">Adicionar</button>
-    </form>
+<div class="container mt-5">
+    <div class="card shadow-sm p-4 mb-4">
+        <h3>Adicionar Conteúdo</h3>
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Descrição</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="link">Link (opcional)</label>
+                <input type="url" class="form-control" id="link" name="link">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-custom">Adicionar</button>
+            </div>
+        </form>
+    </div>
 
     <h3>Conteúdos Existentes</h3>
-    <ul class="list-group">
+    <div class="row mt-4">
         {% for content in contents %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <strong>{{ content.title }}</strong><br>
-                <small>{{ content.description }}</small>
+        <div class="col-md-6 mb-3">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h5 class="card-title">{{ content.title }}</h5>
+                    <p class="card-text">{{ content.description }}</p>
+                    {% if content.link %}
+                    <a href="{{ content.link }}" class="btn btn-outline-primary btn-custom" target="_blank">
+                        <i class="fa fa-external-link"></i> Visitar Link
+                    </a>
+                    {% endif %}
+                </div>
             </div>
-            {% if content.link %}
-            <a href="{{ content.link }}" class="btn btn-outline-primary btn-sm" target="_blank">
-                <i class="fa fa-external-link"></i> Visitar Link
-            </a>
-            {% endif %}
-        </li>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

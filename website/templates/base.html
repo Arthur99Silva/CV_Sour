@@ -3,100 +3,148 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <!-- Font Awesome CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
+    <!-- Custom CSS -->
+    <style>
+      /* Custom Navbar Styles */
+      .navbar-custom {
+        background: linear-gradient(90deg, #1f2022, #31383d);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-custom .navbar-brand img {
+        border-radius: 0%;
+        transition: transform 0.3s ease;
+      }
+      .navbar-custom .navbar-brand img:hover {
+        transform: scale(1.1);
+      }
+      .navbar-custom .nav-link {
+        color: white !important;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+      .navbar-custom .nav-link:hover {
+        color: #FFD700 !important;
+      }
+      .navbar-custom .dropdown-menu {
+        background-color: #535a63;
+        border: none;
+        border-radius: 0 0 10px 10px;
+      }
+      .navbar-custom .dropdown-item {
+        color: white;
+        transition: background-color 0.3s ease;
+      }
+      .navbar-custom .dropdown-item:hover {
+        background-color: #717b81;
+      }
+      /* Adjust body padding to prevent content hiding behind fixed navbar */
+      body {
+        padding-top: 80px;
+      }
+      /* Card Styles */
+      .card-custom {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .card-custom:hover {
+        transform: translateY(-5px);
+      }
+      /* Button Styles */
+      .btn-custom {
+        border-radius: 50px;
+      }
+    </style>
 
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">
-        <img src="{{ url_for('static', filename='images/CV_Source.png') }}" width="120" height="60" alt="Logo">
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          {% if user.is_authenticated %}
-          <a class="nav-item nav-link" id="home" href="/">Home</a>
-          {% if user.is_admin %}
-          <a class="nav-item nav-link" href="/admin/content">Administração</a>
-          {% endif %}
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          {% else %}
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-          {% endif %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <img src="{{ url_for('static', filename='images/CV_Source.png') }}" width="120" height="60" alt="Logo">
+          <span class="ml-2 font-weight-bold"></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" 
+          aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="/">
+                  <i class="fa fa-home"></i> Home
+                </a>
+              </li>
+              {% if user.is_admin %}
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/content">
+                  <i class="fa fa-cogs"></i> Administração
+                </a>
+              </li>
+              {% endif %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user"></i> {{ user.first_name }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                  <a class="dropdown-item" href="/logout">
+                    <i class="fa fa-sign-out"></i> Logout
+                  </a>
+                </div>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="/login">
+                  <i class="fa fa-sign-in"></i> Login
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/sign-up">
+                  <i class="fa fa-user-plus"></i> Sign Up
+                </a>
+              </li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    {% if category == 'error' %}
-    <div class="alert alert-danger alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <!-- Main Content -->
+    <div class="container mt-4">
+      {% block content %}{% endblock %}
     </div>
-    {% else %}
-    <div class="alert alert-success alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
 
-    <div class="container">{% block content %}{% endblock %}</div>
-
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+            crossorigin="anonymous"></script>
 
     {% block javascript %}
-    <script type="text/javascript">
-      function deleteNote(noteId) {
-        fetch("/delete-note", {
-          method: "POST",
-          body: JSON.stringify({ noteId: noteId }),
-        }).then((_res) => {
-          window.location.href = "/";
-        });
-      }
-    </script>
     {% endblock %}
   </body>
 </html>

@@ -4,21 +4,23 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h1 class="text-center">Conteúdos Disponíveis</h1>
-        <ul class="list-group mt-4">
+        <h1 class="text-center mb-4">Conteúdos Disponíveis</h1>
+        <div class="row">
             {% for content in contents %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div>
-                    <strong>{{ content.title }}</strong><br>
-                    <small>{{ content.description }}</small>
+            <div class="col-md-6 mb-4">
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ content.title }}</h5>
+                        <p class="card-text">{{ content.description }}</p>
+                        {% if content.link %}
+                        <a href="{{ content.link }}" class="btn btn-outline-primary btn-custom" target="_blank">
+                            <i class="fa fa-external-link"></i> Visitar Link
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
-                {% if content.link %}
-                <a href="{{ content.link }}" class="btn btn-outline-primary btn-sm" target="_blank">
-                    <i class="fa fa-external-link"></i> Visitar Link
-                </a>
-                {% endif %}
-            </li>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}

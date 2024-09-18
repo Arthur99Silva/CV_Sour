@@ -7,41 +7,12 @@ import json
 # Define o Blueprint
 views = Blueprint('views', __name__)
 
-# Rota para a página inicial
 @views.route('/')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
-
-# Rota para adicionar notas (presumindo que você tinha uma funcionalidade assim)
-@views.route('/add-note', methods=['POST'])
-@login_required
-def add_note():
-    note = request.form.get('note')
-
-    if len(note) < 1:
-        flash('Note is too short!', category='error')
-    else:
-        new_note = Note(data=note, user_id=current_user.id)
-        db.session.add(new_note)
-        db.session.commit()
-        flash('Note added!', category='success')
-
-    return redirect(url_for('views.home'))
-
-# Rota para deletar notas
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-            flash('Note deleted!', category='success')
-
-    return jsonify({})
+    # Busca todos os conteúdos adicionados
+    contents = Content.query.all()
+    return render_template("home.html", user=current_user, contents=contents)
 
 # Rota para administração de conteúdo, acessível apenas por administradores
 @views.route('/admin/content', methods=['GET', 'POST'])

@@ -3,15 +3,22 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1 align="center">Conteúdos Disponíveis</h1>
-    <ul class="list-group list-group-flush">
-        {% for content in contents %}
-        <li class="list-group-item">
-            <strong>{{ content.title }}</strong> - {{ content.description }}
-            {% if content.link %}
-            <a href="{{ content.link }}" target="_blank">Visitar Link</a>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="container mt-4">
+        <h1 class="text-center">Conteúdos Disponíveis</h1>
+        <ul class="list-group mt-4">
+            {% for content in contents %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ content.title }}</strong><br>
+                    <small>{{ content.description }}</small>
+                </div>
+                {% if content.link %}
+                <a href="{{ content.link }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                    <i class="fa fa-external-link"></i> Visitar Link
+                </a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

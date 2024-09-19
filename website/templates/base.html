@@ -18,55 +18,45 @@
     />
     <!-- Custom CSS -->
     <style>
-      /* Custom Navbar Styles */
-      .navbar-custom {
-        background: linear-gradient(90deg, #1f2022, #31383d);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      .navbar-custom .navbar-brand img {
-        border-radius: 0%;
-        transition: transform 0.3s ease;
-      }
-      .navbar-custom .navbar-brand img:hover {
-        transform: scale(1.1);
-      }
-      .navbar-custom .nav-link {
-        color: white !important;
-        font-weight: bold;
-        transition: color 0.3s ease;
-      }
-      .navbar-custom .nav-link:hover {
-        color: #FFD700 !important;
-      }
-      .navbar-custom .dropdown-menu {
-        background-color: #535a63;
-        border: none;
-        border-radius: 0 0 10px 10px;
-      }
-      .navbar-custom .dropdown-item {
-        color: white;
-        transition: background-color 0.3s ease;
-      }
-      .navbar-custom .dropdown-item:hover {
-        background-color: #717b81;
-      }
-      /* Adjust body padding to prevent content hiding behind fixed navbar */
       body {
         padding-top: 80px;
+        background-color: #121212; /* Cor do fundo semelhante ao terminal */
+        color: #00FF00; /* Cor verde para o texto, típica de terminal */
+        font-family: "Courier New", Courier, monospace; /* Fonte estilo terminal */
       }
-      /* Card Styles */
+
+      .navbar-custom {
+        background-color: #1f2022 !important; /* Cor sólida para a navbar */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
       .card-custom {
+        background-color: #1e1e1e; /* Fundo dos cards mais escuro */
         border: none;
-        border-radius: 15px;
+        border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
+        color: #00FF00; /* Texto dos cards em verde */
       }
+
       .card-custom:hover {
         transform: translateY(-5px);
       }
-      /* Button Styles */
+
       .btn-custom {
-        border-radius: 50px;
+        border-radius: 5px;
+        background-color: #008000; /* Botão verde escuro */
+        color: white;
+      }
+
+      .btn-custom:hover {
+        background-color: #00FF00; /* Hover mais claro no botão */
+        color: #000000;
+      }
+
+      .alert {
+        background-color: #333333; /* Fundo de alertas em cinza escuro */
+        color: #00FF00; /* Texto do alerta em verde */
       }
     </style>
 
@@ -143,12 +133,10 @@
       {% endwith %}
     </div>
 
-    <!-- Main Content -->
     <div class="container mt-4">
       {% block content %}{% endblock %}
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
             crossorigin="anonymous"></script>

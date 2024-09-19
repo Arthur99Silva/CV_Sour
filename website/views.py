@@ -51,3 +51,9 @@ def delete_content(content_id):
     db.session.commit()
     flash('Conteúdo deletado com sucesso.', category='success')
     return redirect(url_for('views.admin_content'))
+
+@views.route('/content/<int:content_id>')
+@login_required
+def view_content(content_id):
+    content = Content.query.get_or_404(content_id)
+    return render_template("view_content.html", content=content)

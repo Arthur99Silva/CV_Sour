@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ content.title }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card card-custom">
+            <div class="card-body">
+                <h3>{{ content.title }}</h3>
+                <p>{{ content.description }}</p>
+                {% if content.link %}
+                <a href="{{ content.link }}" class="btn btn-custom" target="_blank">
+                    <i class="fa fa-external-link"></i> Acessar o conteúdo
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

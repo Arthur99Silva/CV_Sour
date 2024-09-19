@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}CV_Source - Home{% endblock %}
 
 {% block content %}
     <div class="container mt-4">
@@ -10,13 +10,17 @@
             <div class="col-md-6 mb-4">
                 <div class="card card-custom">
                     <div class="card-body">
-                        <h5 class="card-title">{{ content.title }}</h5>
-                        <p class="card-text">{{ content.description }}</p>
-                        {% if content.link %}
-                        <a href="{{ content.link }}" class="btn btn-outline-primary btn-custom" target="_blank">
-                            <i class="fa fa-external-link"></i> Link do algoritmo
+                        <h5 class="card-title">
+                            <a href="{{ url_for('views.view_content', content_id=content.id) }}" style="color: #00FF00;">
+                                {{ content.title }}
+                            </a>
+                        </h5>
+                        <p class="card-text">
+                            {{ content.description[:150] }}{% if content.description|length > 150 %}...{% endif %}
+                        </p>
+                        <a href="{{ url_for('views.view_content', content_id=content.id) }}" class="btn btn-custom">
+                            Ver mais
                         </a>
-                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -34,9 +34,15 @@
                     <p class="card-text">{{ content.description }}</p>
                     {% if content.link %}
                     <a href="{{ content.link }}" class="btn btn-outline-primary btn-custom" target="_blank">
-                        <i class="fa fa-external-link"></i> Visitar Link
+                        <i class="fa fa-external-link"></i> Link do conteúdo
                     </a>
                     {% endif %}
+                    <!-- Botão para deletar o conteúdo -->
+                    <form action="{{ url_for('views.delete_content', content_id=content.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este conteúdo?');">
+                            <i class="fa fa-trash"></i> Deletar
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

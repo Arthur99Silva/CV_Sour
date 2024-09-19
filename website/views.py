@@ -38,3 +38,16 @@ def admin_content():
 
     contents = Content.query.all()
     return render_template('admin_content.html', contents=contents)
+
+@views.route('/admin/delete-content/<int:content_id>', methods=['POST'])
+@login_required
+def delete_content(content_id):
+    if not current_user.is_admin:
+        flash('Acesso negado: apenas administradores podem deletar conteúdos.', category='error')
+        return redirect(url_for('views.admin_content'))
+
+    content = Content.query.get_or_404(content_id)
+    db.session.delete(content)
+    db.session.commit()
+    flash('Conteúdo deletado com sucesso.', category='success')
+    return redirect(url_for('views.admin_content'))

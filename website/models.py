@@ -25,9 +25,8 @@ class User(UserMixin, db.Model):
 class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    link = db.Column(db.String(300), nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    description = db.Column(db.String(500), nullable=False)
+    link = db.Column(db.String(500))
 
     def __repr__(self):
         return f'<Content {self.title}>'

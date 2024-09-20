@@ -9,6 +9,13 @@
                 <h3>{{ content.title }}</h3>
                 <p>{{ content.description }}</p>
                 <p><strong>Autor:</strong> {{ content.author }}</p>  <!-- Exibe o autor -->
+                
+                {% if content.youtube_url %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ content.youtube_url.split('v=')[-1] }}" allowfullscreen></iframe>
+                </div>
+                {% endif %}
+
                 {% if content.link %}
                 <a href="{{ content.link }}" class="btn btn-custom" target="_blank">
                     <i class="fa fa-external-link"></i> Acessar o conteúdo

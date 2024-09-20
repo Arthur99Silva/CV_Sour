@@ -26,8 +26,9 @@ class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.String(500), nullable=False)
-    link = db.Column(db.String(500))  # opcional
+    link = db.Column(db.String(500))  # link para conteúdo externo (opcional)
     author = db.Column(db.String(150), nullable=False)
+    youtube_url = db.Column(db.String(500))
 
     def __repr__(self):
         return f'<Content {self.title}>'

@@ -15,12 +15,16 @@
                 <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
             </div>
             <div class="form-group">
-                <label for="author">Autor</label>  <!-- Campo para o autor -->
+                <label for="author">Autor</label>
                 <input type="text" class="form-control" id="author" name="author" required>
             </div>
             <div class="form-group">
                 <label for="link">Link (opcional)</label>
                 <input type="url" class="form-control" id="link" name="link">
+            </div>
+            <div class="form-group">
+                <label for="youtube_url">Link do Vídeo do YouTube (opcional)</label>  <!-- Campo para o link do YouTube -->
+                <input type="url" class="form-control" id="youtube_url" name="youtube_url">
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-custom">Adicionar</button>
@@ -36,12 +40,13 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ content.title }}</h5>
                     <p class="card-text">{{ content.description }}</p>
-                    <p><strong>Autor:</strong> {{ content.author }}</p>  <!-- Mostra o autor -->
+                    <p><strong>Autor:</strong> {{ content.author }}</p>
                     {% if content.link %}
                     <a href="{{ content.link }}" class="btn btn-outline-primary btn-custom" target="_blank">
                         <i class="fa fa-external-link"></i> Visitar Link
                     </a>
                     {% endif %}
+                    <!-- Botão para deletar o conteúdo -->
                     <form action="{{ url_for('views.delete_content', content_id=content.id) }}" method="POST" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este conteúdo?');">
                             <i class="fa fa-trash"></i> Deletar

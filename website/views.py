@@ -58,3 +58,8 @@ def delete_content(content_id):
 def view_content(content_id):
     content = Content.query.get_or_404(content_id)
     return render_template("view_content.html", content=content)
+
+@views.route('/profile')
+@login_required
+def profile():
+    return render_template("profile.html", user=current_user)

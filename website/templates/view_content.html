@@ -8,6 +8,7 @@
             <div class="card-body">
                 <h3>{{ content.title }}</h3>
                 <p>{{ content.description }}</p>
+                <p><strong>Autor:</strong> {{ content.author }}</p>  <!-- Exibe o autor -->
                 {% if content.link %}
                 <a href="{{ content.link }}" class="btn btn-custom" target="_blank">
                     <i class="fa fa-external-link"></i> Acessar o conteúdo

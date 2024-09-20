@@ -1,15 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
+migrate = Migrate()  # Inicializa o Flask-Migrate
 DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'your_secret_key'  # Substitua por uma chave segura
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    
     db.init_app(app)
+    migrate.init_app(app, db)  # Configuração do Flask-Migrate
 
     # Importa as rotas (blueprints)
     from .views import views

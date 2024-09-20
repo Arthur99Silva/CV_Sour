@@ -18,6 +18,7 @@
                         <p class="card-text">
                             {{ content.description[:150] }}{% if content.description|length > 150 %}...{% endif %}
                         </p>
+                        <p><strong>Autor:</strong> {{ content.author }}</p>  <!-- Exibe o autor -->
                         <a href="{{ url_for('views.view_content', content_id=content.id) }}" class="btn btn-custom">
                             Ver mais
                         </a>

@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
-from .models import Content, Note  # Inclua todos os modelos que você estiver usando
+from .models import Content
 from . import db
-import json
 
 # Define o Blueprint
 views = Blueprint('views', __name__)
@@ -25,16 +24,17 @@ def admin_content():
     if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
+        author = request.form.get('author')  # Novo campo de autor
         link = request.form.get('link')
 
-        if title and description:
-            new_content = Content(title=title, description=description, link=link)
+        if title and description and author:
+            new_content = Content(title=title, description=description, author=author, link=link)
             db.session.add(new_content)
             db.session.commit()
             flash('Conteúdo adicionado com sucesso!', 'success')
             return redirect(url_for('views.admin_content'))
         else:
-            flash('Título e descrição são obrigatórios.', 'error')
+            flash('Título, descrição e autor são obrigatórios.', 'error')
 
     contents = Content.query.all()
     return render_template('admin_content.html', contents=contents)
@@ -43,15 +43,16 @@ def admin_content():
 @login_required
 def delete_content(content_id):
     if not current_user.is_admin:
-        flash('Acesso negado: apenas administradores podem deletar conteúdos.', category='error')
+        flash('Acesso negado: apenas administradores podem deletar conteúdos.', 'error')
         return redirect(url_for('views.admin_content'))
 
     content = Content.query.get_or_404(content_id)
     db.session.delete(content)
     db.session.commit()
-    flash('Conteúdo deletado com sucesso.', category='success')
+    flash('Conteúdo deletado com sucesso.', 'success')
     return redirect(url_for('views.admin_content'))
 
+# Rota para visualizar o conteúdo específico
 @views.route('/content/<int:content_id>')
 @login_required
 def view_content(content_id):

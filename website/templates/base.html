@@ -29,7 +29,7 @@
         background-color: #121212;
         color: #00FF00;
         font-family: "Courier New", Courier, monospace;
-        padding-top: 80px;  /* Adicionado para evitar que a navbar tampe o conteúdo */
+        padding-top: 80px;
       }
 
       .content-wrapper {
@@ -43,23 +43,26 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
+      /* Animação para os cards */
       .card-custom {
         background-color: #1e1e1e;
         border: none;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Adiciona transições */
         color: #00FF00;
       }
 
       .card-custom:hover {
         transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       }
 
       .btn-custom {
         border-radius: 5px;
         background-color: #008000;
         color: white;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       .btn-custom:hover {
@@ -70,7 +73,7 @@
       .footer {
         background-color: #1f2022;
         color: #00FF00;
-        padding: 10px 0;  /* Ajuste de altura */
+        padding: 10px 0;
         text-align: center;
         position: relative;
         width: 100%;
@@ -87,7 +90,19 @@
       }
 
       .footer .social-icons {
-        margin-top: 5px; /* Ajuste de espaçamento */
+        margin-top: 5px;
+      }
+
+      /* Animações de fade in */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
     </style>
 
@@ -149,7 +164,7 @@
     </nav>
 
     <!-- Conteúdo -->
-    <div class="container mt-4 content-wrapper">
+    <div class="container mt-4 content-wrapper fade-in" id="content">
       {% block content %}{% endblock %}
     </div>
 
@@ -171,6 +186,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
             crossorigin="anonymous"></script>
+
+    <script>
+      // Efeito fade in na página
+      window.onload = function() {
+        document.getElementById('content').classList.add('visible');
+      };
+    </script>
 
     {% block javascript %}
     {% endblock %}

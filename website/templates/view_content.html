@@ -11,7 +11,7 @@
                 <p><strong>Autor:</strong> {{ content.author }}</p>  <!-- Exibe o autor -->
                 
                 {% if content.youtube_url %}
-                <div class="embed-responsive embed-responsive-16by9">
+                <div class="embed-responsive" style="padding-bottom: 44%;">
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ content.youtube_url.split('v=')[-1] }}" allowfullscreen></iframe>
                 </div>
                 {% endif %}

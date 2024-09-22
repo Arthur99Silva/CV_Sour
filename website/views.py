@@ -12,6 +12,11 @@ def home():
     contents = Content.query.all()
     return render_template("home.html", user=current_user, contents=contents)
 
+@views.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', user=current_user)
+
 # Rota para administração de conteúdo, acessível apenas por administradores
 @views.route('/admin/content', methods=['GET', 'POST'])
 @login_required

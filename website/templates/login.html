@@ -22,4 +22,14 @@
             </div>
         </div>
     </div>
+
+    <!-- Caixa de erro para senha incorreta estilizada -->
+    {% if error_message %}
+    <div class="alert alert-danger alert-dismissible fade show position-fixed" style="bottom: 20px; right: 20px; width: 250px; background-color: #1e1e1e; color: #00FF00; border: 1px solid #00FF00; font-family: 'Courier New', Courier, monospace;" role="alert">
+        {{ error_message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color: #00FF00;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
 {% endblock %}

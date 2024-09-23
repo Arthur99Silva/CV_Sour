@@ -11,19 +11,19 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-
+        
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                flash('Logged in successfully!', category='success')
-                login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                login_user(user)
+                # Redireciona para a home com uma mensagem de sucesso
+                return redirect(url_for('views.home', success_message="Login efetuado com sucesso!"))
             else:
-                flash('Incorrect password, try again.', category='error')
+                return render_template('login.html', error_message="Senha incorreta, tente novamente.")
         else:
-            flash('Email does not exist.', category='error')
+            return render_template('login.html', error_message="Usuário não encontrado.")
 
-    return render_template("login.html", user=current_user)
+    return render_template('login.html')
 
 @auth.route('/logout')
 @login_required
@@ -38,25 +38,20 @@ def sign_up():
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-
+        
         user = User.query.filter_by(email=email).first()
+
         if user:
-            flash('Email already exists.', category='error')
-        elif password1 != password2:
-            flash('Passwords do not match.', category='error')
+            return render_template('sign_up.html', error_message="Email já cadastrado.")
         elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='error')
+            return render_template('sign_up.html', error_message="A senha deve ter pelo menos 7 caracteres.")
+        elif password1 != password2:
+            return render_template('sign_up.html', error_message="As senhas não coincidem.")
         else:
-            # Corrigido para usar o método de hash correto
-            new_user = User(
-                email=email, 
-                first_name=first_name, 
-                password=generate_password_hash(password1, method='pbkdf2:sha256')  # Correção aplicada aqui
-            )
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(new_user, remember=True)
-            flash('Account created!', category='success')
+            login_user(new_user)
             return redirect(url_for('views.home'))
 
-    return render_template("sign_up.html", user=current_user)
+    return render_template('sign_up.html')

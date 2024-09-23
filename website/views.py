@@ -7,7 +7,7 @@ from . import db
 views = Blueprint('views', __name__)
 
 @views.route('/')
-@login_required
+#@login_required
 def home():
     contents = Content.query.all()
     return render_template("home.html", user=current_user, contents=contents)
@@ -46,7 +46,7 @@ def admin_content():
 
 # Rota para visualizar o conteúdo específico
 @views.route('/content/<int:content_id>')
-@login_required
+#@login_required
 def view_content(content_id):
     content = Content.query.get_or_404(content_id)
     return render_template("view_content.html", content=content)

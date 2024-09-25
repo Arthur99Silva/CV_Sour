@@ -70,7 +70,6 @@ opencv-contrib-python==4.9.0.80
 opencv-python==4.9.0.80
 opt-einsum==3.3.0
 packaging==21.3
-PAM==0.4.2
 pexpect==4.8.0
 Pillow==9.0.1
 platformdirs==2.5.1

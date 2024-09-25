@@ -21,7 +21,7 @@ cryptography==3.4.8
 cvzone==1.6.1
 cycler==0.12.1
 dbus-python==1.2.18
-defer==1.0.6
+defer==1.0.4
 distlib==0.3.4
 distro==1.7.0
 eyeD3==0.8.10

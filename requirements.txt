@@ -74,16 +74,6 @@ pexpect==4.8.0
 Pillow==9.0.1
 platformdirs==2.5.1
 protobuf==4.25.3
-proton-keyring-linux==0.0.2
-proton-keyring-linux-secretservice==0.0.2
-proton-vpn-api-core==0.33.11
-proton-vpn-gtk-app==4.4.5
-proton-vpn-killswitch-network-manager==0.5.4
-proton-vpn-killswitch-network-manager-wireguard==0.1.4
-proton-vpn-logger==0.2.1
-proton-vpn-network-manager==0.6.3
-proton-vpn-network-manager-openvpn==0.1.1
-proton-vpn-network-manager-wireguard==0.4.7
 psutil==5.9.0
 ptyprocess==0.7.0
 pycairo==1.20.1

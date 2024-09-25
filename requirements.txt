@@ -74,7 +74,6 @@ pexpect==4.8.0
 Pillow==9.0.1
 platformdirs==2.5.1
 protobuf==4.25.3
-proton-core==0.3.3
 proton-keyring-linux==0.0.2
 proton-keyring-linux-secretservice==0.0.2
 proton-vpn-api-core==0.33.11

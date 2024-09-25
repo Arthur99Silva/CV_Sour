@@ -24,7 +24,7 @@ dbus-python==1.2.18
 defer==1.0.4
 distlib==0.3.4
 distro==1.7.0
-eyeD3==0.8.10
+eyeD3==0.9.7
 filelock==3.6.0
 Flask==3.0.3
 Flask-Login==0.6.3

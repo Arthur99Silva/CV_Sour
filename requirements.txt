@@ -20,6 +20,7 @@ contourpy==1.2.1
 cryptography==3.4.8
 cvzone==1.6.1
 cycler==0.12.1
+Cython>=0.29.21
 defer==1.0.4
 distlib==0.3.4
 distro==1.7.0
